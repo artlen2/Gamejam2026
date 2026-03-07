@@ -24,7 +24,9 @@ public class Enemy : LivingEntity
     float nextAttackTime;
 
     protected override void Start()
+
     {
+
         base.Start();
 
         agent = GetComponent<NavMeshAgent>();
@@ -50,7 +52,7 @@ public class Enemy : LivingEntity
         }
 
         agent.SetDestination(target.position);
-        anim.SetFloat("Speed", agent.velocity.magnitude);
+        anim.SetFloat("Speed", agent.desiredVelocity.magnitude);
 
         if (distance < attackDistance && Time.time > nextAttackTime)
         {
@@ -73,6 +75,8 @@ public class Enemy : LivingEntity
 
     public override void TakeDamage(float damage)
     {
+        Debug.Log("Took damage" + damage);
+
         base.TakeDamage(damage);
 
         if (dead) return;
@@ -104,14 +108,26 @@ public class Enemy : LivingEntity
         agent.isStopped = false;
     }
 
-    public override void Die()
+public override void Die()
+{
+    if (dead) return;
+
+    dead = true;
+    
+    anim.SetTrigger("Death");
+
+    // Désactive l'Animator pour éviter toute nouvelle animation après la mort
+    anim.enabled = false;
+
+    agent.isStopped = true;
+
+    // Éventuellement, supprimer l'objet après la durée de l'animation de mort
+    Destroy(gameObject, 2f); // ajuste la durée pour correspondre à celle de l'animation
+}
+
+    public void DestroyEnemy()
     {
-        if (dead) return;
-
-        anim.SetTrigger("Death");
-
-        agent.isStopped = true;
-
-        base.Die();
+        Destroy(gameObject);
     }
 }
+

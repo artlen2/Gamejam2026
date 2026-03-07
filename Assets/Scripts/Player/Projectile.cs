@@ -64,16 +64,21 @@ public class Projectile : MonoBehaviour
 
     void OnHitObject(Collider collider, Vector3 hitPoint)
     {
-        // verifie si la cible a le script IDamageable
+        Debug.Log("Projectile hit: " + collider.name);
+
         IDamageable damageableObject = collider.GetComponent<IDamageable>();
+
+        if (damageableObject == null)
+        {
+            damageableObject = collider.GetComponentInParent<IDamageable>();
+        }
 
         if (damageableObject != null)
         {
-            // si oui, les degats sont appliques
-            damageableObject.TakeHit(damage, hitPoint, transform.forward);
+            Debug.Log("Applying damage: " + damage);  // Vérifie le montant des dégâts appliqués
+            damageableObject.TakeDamage(damage);
         }
 
-        // si projectile touche, il est detruit
-        Destroy(gameObject);
+        Destroy(gameObject);  // Détruire le projectile après l'impact
     }
 }
