@@ -15,6 +15,7 @@ public class LivingEntity : MonoBehaviour, IDamageable
     protected virtual void Start()
     {
         health = startingHealth;
+        Debug.Log("Initial Health: " + health);  // Vérifie la valeur de health lors de l'initialisation
     }
 
     public virtual void TakeHit(float damage, Vector3 hitPoint, Vector3 hitDirection)
@@ -31,7 +32,11 @@ public class LivingEntity : MonoBehaviour, IDamageable
     {
         if (dead) return;
 
+        Debug.Log("TakeDamage: " + damage + " | Health before: " + health);
+
         health -= damage;
+
+        Debug.Log("Health after damage: " + health);
 
         if (health <= 0)
         {

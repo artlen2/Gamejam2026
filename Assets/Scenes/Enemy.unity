@@ -964,7 +964,7 @@ MonoBehaviour:
   tr: {fileID: 0}
   projectilePrefab: {fileID: 6832996799110821030, guid: affc9a2c5c55eec4693fdb5efa83a61d, type: 3}
   firePoint: {fileID: 2138906774}
-  projectileSpeed: 10
+  projectileSpeed: 20
 --- !u!1001 &1201073401
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1243,7 +1243,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -1259,8 +1259,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8711125ff7306ac43a18bb2f7c0b018b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  startingHealth: 50
-  maxHealth: 50
+  startingHealth: 30
+  maxHealth: 30
   hitEffect: {fileID: 0}
   healthBar: {fileID: 0}
   modelRenderer: {fileID: 272614900}
@@ -1336,7 +1336,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 1.4
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}

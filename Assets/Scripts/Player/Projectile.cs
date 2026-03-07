@@ -75,7 +75,8 @@ public class Projectile : MonoBehaviour
 
         if (damageableObject != null)
         {
-            damageableObject.TakeDamage(damage);  // Appeler la méthode TakeDamage sur l'ennemi
+            Debug.Log("Applying damage: " + damage);  // Vérifie le montant des dégâts appliqués
+            damageableObject.TakeDamage(damage);
         }
 
         Destroy(gameObject);  // Détruire le projectile après l'impact
