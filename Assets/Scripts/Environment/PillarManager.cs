@@ -5,7 +5,7 @@ public class PillarManager : MonoBehaviour
     public static PillarManager Instance;
 
     [Header("Pillars")]
-    public Activate[] pillars; // Drag all 4 Activate pillar objects here
+    public ActivatePillar[] pillars; // Drag all 4 Activate pillar objects here
 
     private int activatedCount = 0;
     private bool allActivated = false;
