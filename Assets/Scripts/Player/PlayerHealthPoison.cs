@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -29,5 +30,19 @@ public class PlayerHealth : MonoBehaviour
     void Die()
     {
         Debug.Log("Player is dead!");
+    }
+
+    public bool IsPoisoned { get; private set; }
+
+    public void SetPoisoned(bool poisoned)
+    {
+        IsPoisoned = poisoned;
+    }
+
+    public void Heal(float amount)
+    {
+        currentHealth += amount;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+        healthSlider.value = currentHealth;
     }
 }
