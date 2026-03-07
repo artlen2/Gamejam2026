@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Activate : MonoBehaviour
+public class ActivatePillar : MonoBehaviour
 {
     [Header("Pillar Settings")]
     public float riseUp = 3f;
