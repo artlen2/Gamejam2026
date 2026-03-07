@@ -5,14 +5,15 @@ TagManager:
   serializedVersion: 3
   tags:
   - HealCheckpoint
+  - CinemachineTarget
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Enemy
   - Water
   - UI
-  - 
+  - Player
   - 
   - 
   - 
