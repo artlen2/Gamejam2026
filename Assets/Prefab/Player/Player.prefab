@@ -12,10 +12,8 @@ GameObject:
   - component: {fileID: 6746495435870420807}
   - component: {fileID: 6381704002542309698}
   - component: {fileID: 6532685329981992231}
-  - component: {fileID: 8133107367318398551}
   - component: {fileID: 2414437459751472465}
   - component: {fileID: 6082387963126644196}
-  - component: {fileID: 5159110496280957582}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -120,26 +118,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8133107367318398551
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 737951370654492873}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9a0a235a37eab14a8404eb1f46d8b94, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  gravityMultiplier: 1
-  smoothTime: 0.05
-  speed: 5
-  jumpPower: 4
-  tr: {fileID: 6082387963126644196}
-  projectilePrefab: {fileID: 6832996799110821030, guid: affc9a2c5c55eec4693fdb5efa83a61d, type: 3}
-  firePoint: {fileID: 622551710977842890}
-  projectileSpeed: 10
 --- !u!143 &2414437459751472465
 CharacterController:
   m_ObjectHideFlags: 0
@@ -284,21 +262,6 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
---- !u!114 &5159110496280957582
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 737951370654492873}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9a9f9e10b4fb0d4896189f1b70cf24c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
-  maxHealth: 100
-  currentHealth: 100
-  healthSlider: {fileID: 0}
 --- !u!1 &1474520064983329304
 GameObject:
   m_ObjectHideFlags: 0

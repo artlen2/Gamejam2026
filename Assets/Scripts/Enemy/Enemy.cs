@@ -1,15 +1,20 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(Animator))]
-[RequireComponent (typeof(NavMeshAgent))]
+[RequireComponent(typeof(NavMeshAgent))]
+
 public class Enemy : LivingEntity
 {
-    NavMeshAgent agent; //Système de navigation du l'ennemi
-    Transform target; //joueur
+    NavMeshAgent agent;
+    Transform target;
     Animator anim;
+
+    [SerializeField] HealthBarEnemy healthBar;
+    [SerializeField] Renderer modelRenderer;
+
+    Color originalColor;
 
     public float detectionDistance = 2f;
     public float attackDistance = 1.5f;
@@ -18,17 +23,16 @@ public class Enemy : LivingEntity
 
     float nextAttackTime;
 
-
-    public event System.Action OnDeath;
-
     protected override void Start()
     {
         base.Start();
+
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
 
-        // trouver le joueur dans la scène
         target = GameObject.FindGameObjectWithTag("Player").transform;
+
+        originalColor = modelRenderer.material.color;
     }
 
     void Update()
@@ -36,12 +40,8 @@ public class Enemy : LivingEntity
         if (dead) return;
         if (target == null) return;
 
-        //animation de course
-        anim.SetFloat("Speed", agent.velocity.magnitude);
-
         float distance = Vector3.Distance(transform.position, target.position);
 
-        //joueur trop loin donc statut de idle
         if (distance > detectionDistance)
         {
             agent.ResetPath();
@@ -49,11 +49,9 @@ public class Enemy : LivingEntity
             return;
         }
 
-        //joueur détécter donc attaque
         agent.SetDestination(target.position);
         anim.SetFloat("Speed", agent.velocity.magnitude);
 
-        // attaquer si le player est assez proche
         if (distance < attackDistance && Time.time > nextAttackTime)
         {
             nextAttackTime = Time.time + attackRate;
@@ -73,15 +71,47 @@ public class Enemy : LivingEntity
         }
     }
 
+    public override void TakeDamage(float damage)
+    {
+        base.TakeDamage(damage);
+
+        if (dead) return;
+
+        healthBar.UpdateHealthBarEnemy(startingHealth, health);
+
+        anim.SetTrigger("Hit");
+
+        StartCoroutine(DamageFlash());
+
+        StartCoroutine(Stun());
+    }
+
+    IEnumerator DamageFlash()
+    {
+        modelRenderer.material.color = Color.white;
+
+        yield return new WaitForSeconds(0.3f);
+
+        modelRenderer.material.color = originalColor;
+    }
+
+    IEnumerator Stun()
+    {
+        agent.isStopped = true;
+
+        yield return new WaitForSeconds(0.4f);
+
+        agent.isStopped = false;
+    }
 
     public override void Die()
     {
-        if(OnDeath != null)
-        {
-            OnDeath();
-        }
+        if (dead) return;
+
+        anim.SetTrigger("Death");
+
+        agent.isStopped = true;
+
         base.Die();
     }
-
-
 }
