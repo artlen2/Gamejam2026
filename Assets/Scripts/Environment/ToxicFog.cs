@@ -7,9 +7,8 @@ public class ToxicFog : MonoBehaviour
     public float fogDensity = 0.08f;
     public FogMode fogMode = FogMode.ExponentialSquared;
 
-
-    private bool playerInSafeZone = false;
-    private int safeZoneCount = 0; // Tracks overlapping safe zones
+    private int safeZoneCount = 0;
+    private PoisonEffect trackedPoison; // cache the player's PoisonEffect
 
     void Start()
     {
@@ -17,46 +16,42 @@ public class ToxicFog : MonoBehaviour
         RenderSettings.fogColor = fogColor;
         RenderSettings.fogDensity = fogDensity;
         RenderSettings.fogMode = fogMode;
-
     }
 
-    // Called by SafeZone.cs when player enters/exits
     public void OnPlayerEnterSafeZone()
     {
         safeZoneCount++;
-        UpdateFog();
+        UpdateFogAndPoison();
     }
 
     public void OnPlayerExitSafeZone()
     {
         safeZoneCount = Mathf.Max(0, safeZoneCount - 1);
-        UpdateFog();
+        UpdateFogAndPoison();
     }
 
-    void UpdateFog()
+    void UpdateFogAndPoison()
     {
         bool inSafe = safeZoneCount > 0;
-
-        // Thin the fog when inside a safe zone
         RenderSettings.fogDensity = inSafe ? 0.005f : fogDensity;
 
-
-        // Poison the player
-        GameObject player = GameObject.FindWithTag("Player");
-        if (player != null)
-        {
-            PoisonEffect poison = player.GetComponent<PoisonEffect>();
-            if (poison != null) poison.SetSuppressed(inSafe);
-        }
+        // Use cached reference instead of FindWithTag every call
+        if (trackedPoison != null)
+            trackedPoison.SetSuppressed(inSafe);
     }
 
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            GameObject player = other.gameObject;
-            PoisonEffect poison = player.GetComponent<PoisonEffect>();
-            if (poison != null) poison.Poison();
+            trackedPoison = other.GetComponent<PoisonEffect>();
+
+            if (trackedPoison != null)
+            {
+                trackedPoison.Poison();
+                // Apply suppression immediately if already in a safe zone
+                trackedPoison.SetSuppressed(safeZoneCount > 0);
+            }
         }
     }
 
@@ -64,8 +59,11 @@ public class ToxicFog : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            PoisonEffect poison = other.GetComponent<PoisonEffect>();
-            if (poison != null) poison.Cure();
+            if (trackedPoison != null)
+            {
+                trackedPoison.Cure();
+                trackedPoison = null; // clear cache on exit
+            }
         }
     }
 }

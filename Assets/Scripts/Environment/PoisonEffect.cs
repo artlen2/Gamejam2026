@@ -9,11 +9,11 @@ public class PoisonEffect : MonoBehaviour
 
     private bool isSuppressed = false;
     private float tickTimer;
-    private PlayerHealth playerHealth;
+    private PlayerHealthPoison playerHealth;
 
     void Start()
     {
-        playerHealth = GetComponent<PlayerHealth>();
+        playerHealth = GetComponent<PlayerHealthPoison>();
         tickTimer = tickInterval;
     }
 

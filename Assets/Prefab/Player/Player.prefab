@@ -14,9 +14,11 @@ GameObject:
   - component: {fileID: 6532685329981992231}
   - component: {fileID: 2414437459751472465}
   - component: {fileID: 6082387963126644196}
+  - component: {fileID: 6594010130113472567}
+  - component: {fileID: 6135986538788582973}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -71,7 +73,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 08413207dcbb2fa4cbec2f2a5ce232a4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -260,8 +262,44 @@ TrailRenderer:
     generateLightingData: 0
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
-  m_Emitting: 1
+  m_Emitting: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &6594010130113472567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737951370654492873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eac6dde44e7c38649b1912f93a8401ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
+  maxHealth: 100
+  currentHealth: 0
+  hpText: {fileID: 0}
+  isAlive: 1
+--- !u!114 &6135986538788582973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737951370654492873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9a0a235a37eab14a8404eb1f46d8b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+  gravityMultiplier: 3
+  smoothTime: 0.05
+  speed: 5
+  jumpPower: 2
+  tr: {fileID: 6082387963126644196}
+  projectilePrefab: {fileID: 6832996799110821030, guid: affc9a2c5c55eec4693fdb5efa83a61d, type: 3}
+  firePoint: {fileID: 622551710977842890}
+  projectileSpeed: 10
 --- !u!1 &1474520064983329304
 GameObject:
   m_ObjectHideFlags: 0
@@ -329,7 +367,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 08413207dcbb2fa4cbec2f2a5ce232a4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

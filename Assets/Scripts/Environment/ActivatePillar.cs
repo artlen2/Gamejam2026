@@ -3,8 +3,8 @@ using UnityEngine;
 public class ActivatePillar : MonoBehaviour
 {
     [Header("Pillar Settings")]
-    public float riseUp = 3f;
-    public float riseSpeed = 5f;
+    public float riseUp = 0.2f;
+    public float riseSpeed = 1f;
     public float activeDuration = 10f;
     public float cooldown = 40f;
 
@@ -19,8 +19,8 @@ public class ActivatePillar : MonoBehaviour
     public float lightIntensityIdle = 0.2f;
     public Color lightColorActive = new Color(0.4f, 1f, 0.5f);
     public Color lightColorIdle = new Color(0.2f, 0.2f, 0.2f);
-    public ParticleSystem activateParticles; // Optional sparkle/glow effect on activation
 
+    // Internal state
     private Vector3 startPosition;
     private Vector3 targetPosition;
     private float timer;
@@ -29,7 +29,11 @@ public class ActivatePillar : MonoBehaviour
     private bool onCooldown = false;
     private bool playerInZone = false;
     private float healTimer;
-    private PlayerHealth playerHealth;
+    private PlayerHealthPoison playerHealth;
+
+    // For testing material change on the pillar itself
+    public Material Material1;
+    public Material Material2;
 
     void Start()
     {
@@ -44,7 +48,15 @@ public class ActivatePillar : MonoBehaviour
 
         if (safeZoneCollider != null)
             safeZoneCollider.SetActive(false);
+
+        GetComponent<MeshRenderer>().material = Material1;
     }
+
+    void ResetMats()
+    {
+        GetComponent<MeshRenderer>().material = Material1;
+    }
+
 
     void Update()
     {
@@ -121,8 +133,6 @@ public class ActivatePillar : MonoBehaviour
             pillarLight.color = lightColorActive;
         }
 
-        if (activateParticles != null)
-            activateParticles.Play();
     }
 
     void DeactivateSafeZone()
@@ -135,9 +145,6 @@ public class ActivatePillar : MonoBehaviour
             pillarLight.intensity = lightIntensityIdle;
             pillarLight.color = lightColorIdle;
         }
-
-        if (activateParticles != null)
-            activateParticles.Stop();
     }
 
     void OnTriggerEnter(Collider other)
@@ -146,7 +153,7 @@ public class ActivatePillar : MonoBehaviour
         {
             playerInZone = true;
             healTimer = 0f;
-            playerHealth = other.GetComponent<PlayerHealth>();
+            playerHealth = other.GetComponent<PlayerHealthPoison>();
 
             PoisonEffect poison = other.GetComponent<PoisonEffect>();
             if (poison != null) poison.SetSuppressed(true);
@@ -154,6 +161,14 @@ public class ActivatePillar : MonoBehaviour
             // Activate if not on cooldown and not already active
             if (!onCooldown && !isRising && !isUp && !isLowering)
                 isRising = true;
+        }
+
+        // When the player steps on the pillar, change its material for visual feedback
+        if (other.tag == "player")
+        {
+            CancelInvoke(); // cancel any invokes that are currently scheduled. we only need one to be active
+            Invoke("ResetMats", 10);
+            GetComponent<MeshRenderer>().material = Material2;
         }
     }
 
@@ -172,4 +187,7 @@ public class ActivatePillar : MonoBehaviour
             }
         }
     }
+    
+
+
 }
