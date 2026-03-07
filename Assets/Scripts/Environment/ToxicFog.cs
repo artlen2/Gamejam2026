@@ -7,8 +7,6 @@ public class ToxicFog : MonoBehaviour
     public float fogDensity = 0.08f;
     public FogMode fogMode = FogMode.ExponentialSquared;
 
-    [Header("Particle Fog (optional)")]
-    public ParticleSystem fogParticles; // Assign a particle system for volumetric-style fog
 
     private bool playerInSafeZone = false;
     private int safeZoneCount = 0; // Tracks overlapping safe zones
@@ -20,8 +18,6 @@ public class ToxicFog : MonoBehaviour
         RenderSettings.fogDensity = fogDensity;
         RenderSettings.fogMode = fogMode;
 
-        if (fogParticles != null)
-            fogParticles.Play();
     }
 
     // Called by SafeZone.cs when player enters/exits
@@ -44,11 +40,6 @@ public class ToxicFog : MonoBehaviour
         // Thin the fog when inside a safe zone
         RenderSettings.fogDensity = inSafe ? 0.005f : fogDensity;
 
-        if (fogParticles != null)
-        {
-            var emission = fogParticles.emission;
-            emission.enabled = !inSafe;
-        }
 
         // Poison the player
         GameObject player = GameObject.FindWithTag("Player");

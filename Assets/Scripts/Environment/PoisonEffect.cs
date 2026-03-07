@@ -21,6 +21,7 @@ public class PoisonEffect : MonoBehaviour
     {
         if (!isPoisoned || isSuppressed) return;
 
+        // Apply damage over time
         tickTimer -= Time.deltaTime;
         if (tickTimer <= 0f)
         {
@@ -31,18 +32,21 @@ public class PoisonEffect : MonoBehaviour
 
     public void SetSuppressed(bool suppressed)
     {
+        // If we're suppressing, we want to stop the poison effect
         isSuppressed = suppressed;
         playerHealth?.SetPoisoned(isPoisoned && !suppressed);
     }
 
     public void Poison()
     {
+        // Only apply poison if we're not already poisoned
         isPoisoned = true;
         playerHealth?.SetPoisoned(!isSuppressed);
     }
 
     public void Cure()
     {
+        // Cure the poison and reset all related states (when level is completed)
         isPoisoned = false;
         isSuppressed = false;
         playerHealth?.SetPoisoned(false);
