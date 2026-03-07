@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 4251583467009869011}
   - component: {fileID: 5987641865994009119}
   - component: {fileID: 2175127665215352476}
-  - component: {fileID: 4811304900321521301}
-  - component: {fileID: 2546621284103589288}
   - component: {fileID: 6043106424693708718}
+  - component: {fileID: 2716748727895975553}
+  - component: {fileID: 2496098038237391909}
   m_Layer: 0
   m_Name: Heal
   m_TagString: Untagged
@@ -117,37 +117,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4811304900321521301
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3710613331226828848}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3fc34b33a5c5a2499df7a82adf1ea82, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HealCheckpoint
-  Material1: {fileID: 2100000, guid: 079afe837d731314d821227726dfcfe9, type: 2}
-  Material2: {fileID: 2100000, guid: b9e7e189566fcfa4a81768b566965c04, type: 2}
---- !u!114 &2546621284103589288
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3710613331226828848}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 708bae0432cd7334c8c8163744843fb8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Activate
-  riseUp: 0.6
-  riseSpeed: 1
-  stayUpDuration: 5
-  healAmount: 10
-  healInterval: 1
 --- !u!95 &6043106424693708718
 Animator:
   serializedVersion: 7
@@ -170,6 +139,45 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2716748727895975553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3710613331226828848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ccb62f6c28a7e54ea57b283bba91b70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ActivatePillar
+  riseUp: 3
+  riseSpeed: 5
+  activeDuration: 10
+  cooldown: 40
+  healAmount: 10
+  healInterval: 1
+  safeZoneCollider: {fileID: 0}
+  pillarLight: {fileID: 0}
+  lightIntensityActive: 5
+  lightIntensityIdle: 0.2
+  lightColorActive: {r: 0.4, g: 1, b: 0.5, a: 1}
+  lightColorIdle: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+  activateParticles: {fileID: 0}
+--- !u!114 &2496098038237391909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3710613331226828848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a9a1a558a86bbb4c9aa467962369642, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HealCheckpoint
+  Material1: {fileID: 0}
+  Material2: {fileID: 0}
 --- !u!1 &4505912704618615913
 GameObject:
   m_ObjectHideFlags: 0
