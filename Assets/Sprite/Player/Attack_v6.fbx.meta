@@ -428,6 +428,16 @@ ModelImporter:
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
+    - name: poche1
+      parentName: Attack_v6(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: sarbacane1
+      parentName: Attack_v6(Clone)
+      position: {x: 0.13895315, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
     - name: mixamorig:Hips
       parentName: Attack_v6(Clone)
       position: {x: 0, y: 0.36929542, z: 0.0028663771}
@@ -633,6 +643,26 @@ ModelImporter:
       position: {x: -0, y: 0.03852424, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
+    - name: poche
+      parentName: Attack_v6(Clone)
+      position: {x: 0.13526963, y: 0.24893744, z: -0.04487992}
+      rotation: {x: 0.000000016463611, y: -0.000000016463611, z: -0.7071068, w: 0.7071068}
+      scale: {x: 1.0000001, y: 1, z: 1}
+    - name: poche_End
+      parentName: poche
+      position: {x: -0.06917378, y: 0, z: 0}
+      rotation: {x: -0.000000012347709, y: 0.000000020579513, z: 0.7071068, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: sarbacane
+      parentName: Attack_v6(Clone)
+      position: {x: 0.103387766, y: 0.51372606, z: 0.28199193}
+      rotation: {x: 0.0009884973, y: 0.7071061, z: 0.0009884886, w: 0.7071062}
+      scale: {x: 0.9999999, y: 1, z: 1}
+    - name: sarbacane_End
+      parentName: sarbacane
+      position: {x: -0.3080382, y: 0, z: 0}
+      rotation: {x: -0.0009884905, y: -0.7071061, z: -0.0009884952, w: 0.7071062}
+      scale: {x: 0.9999999, y: 1.0000001, z: 0.9999997}
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5
