@@ -2021,6 +2021,10 @@ PrefabInstance:
       value: Idle
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: f10871c2637898f4aade490ae6da4c0b, type: 3}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 9000000, guid: f48f3260aa745c943878bbe5638cdb71, type: 3}
+    - target: {fileID: 5866666021909216657, guid: f10871c2637898f4aade490ae6da4c0b, type: 3}
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: c4f391a2cbf5f624b881ae19a15a497a, type: 2}

@@ -65,7 +65,7 @@ public class Projectile : MonoBehaviour
     void OnHitObject(Collider collider, Vector3 hitPoint)
     {
         // verifie si la cible a le script IDamageable
-        IDamageable damageableObject = collider.GetComponent<IDamageable>();
+        IDamagable damageableObject = collider.GetComponent<IDamagable>();
 
         if (damageableObject != null)
         {

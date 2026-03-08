@@ -4,15 +4,19 @@
 TagManager:
   serializedVersion: 3
   tags:
+  - HealingPillar
+  - Poison
   - HealCheckpoint
+  - CinemachineTarget
+  - SafeZone
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Enemy
   - Water
   - UI
-  - 
+  - Player
   - 
   - 
   - 

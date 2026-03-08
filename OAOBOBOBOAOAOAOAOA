@@ -1,0 +1,30 @@
+[33mcf4d2be[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m WIP, boss room
+[33mf394d7e[m WIP, boss room
+[33m0a7e64d[m Systeme vie ennemi ok et combat ok
+[33m704b0d1[m Tuer un ennemi, system vie bidon
+[33m71acc57[m Changement anim, player, enemy
+[33me305ec8[m Merge branch 'main' of https://github.com/artlen2/Gamejam2026
+[33m5a8f0ae[m Ajout du prefab Player
+[33m708e33a[m nom scripts et restart perso
+[33m43782ba[m Ajout du prefab Player et prefab Main Camera pour Leo
+[33m550e92f[m PlayerHealthPoison et autres
+[33m3b0f907[m Mise à jour de la scène du joueur
+[33md64e0be[m Rajout du PlayerHealth et de la barre de vie
+[33ma5085b4[m Merge branch 'main' of https://github.com/artlen2/Gamejam2026
+[33md931017[m Ajout du script PlayerHealth et de la barre de vie
+[33m88a3150[m Tuto placeholder removed
+[33md88b35b[m Ajout du InputPlayer et du PlayerController (marcher, dash, attaquer, sauter), cameramanager (camera follow)
+[33m75d0f2c[m Merge branch 'main' of https://github.com/artlen2/Gamejam2026
+[33me0fc490[m Start healthbar texture script ennemy
+[33m63cb319[m Scripts du joueur
+[33m827bf97[m WIP, placeholder player
+[33m4f0ef54[m Enemy basic script
+[33m1dd6128[m Suite script enemy v3
+[33m784f388[m Merge branch 'main' of https://github.com/artlen2/Gamejam2026
+[33m68b0a2a[m Suite enemy script 2
+[33m0dd965b[m Delete Assets/Scripts/Enemy directory
+[33m8aad395[m Suite enemy et script
+[33me3a0775[m Environment folder + some basic assets
+[33m17de5af[m Dossier enemy et script de base enemy
+[33m214f46a[m Initial commmit
+[33m1b8afda[m Initial commit
