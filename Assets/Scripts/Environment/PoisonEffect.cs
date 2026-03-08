@@ -3,7 +3,7 @@
 public class PoisonEffect : MonoBehaviour
 {
     [Header("Poison Settings")]
-    public float damagePerTick = 5f;
+    public float damagePerTick = 2f;
     public float tickInterval = 1f;
     public bool isPoisoned = false;
 

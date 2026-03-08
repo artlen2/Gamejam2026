@@ -4,13 +4,11 @@
 TagManager:
   serializedVersion: 3
   tags:
-<<<<<<< HEAD
   - HealingPillar
   - Poison
-=======
   - HealCheckpoint
   - CinemachineTarget
->>>>>>> 0a7e64d250edc879776d230074139bc3c66c2856
+  - SafeZone
   layers:
   - Default
   - TransparentFX

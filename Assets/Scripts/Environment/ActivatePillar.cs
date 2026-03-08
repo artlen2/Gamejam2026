@@ -35,6 +35,9 @@ public class ActivatePillar : MonoBehaviour
     public Material Material1;
     public Material Material2;
 
+    // Poison effect
+    private PoisonEffect trackedPoison;
+
     void Start()
     {
         startPosition = transform.position;
@@ -57,6 +60,9 @@ public class ActivatePillar : MonoBehaviour
         GetComponent<MeshRenderer>().material = Material1;
     }
 
+   
+
+ 
 
     void Update()
     {
@@ -137,8 +143,21 @@ public class ActivatePillar : MonoBehaviour
 
     void DeactivateSafeZone()
     {
+        // Force poison back on regardless of trigger state
+        if (trackedPoison != null)
+        {
+            trackedPoison.SetSuppressed(false);
+            trackedPoison = null;
+        }
+
         if (safeZoneCollider != null)
-            safeZoneCollider.SetActive(false);
+        {
+            SafeZone sz = safeZoneCollider.GetComponent<SafeZone>();
+            if (sz != null)
+                StartCoroutine(sz.ShrinkAndDisable());
+            else
+                safeZoneCollider.SetActive(false);
+        }
 
         if (pillarLight != null)
         {
@@ -154,6 +173,7 @@ public class ActivatePillar : MonoBehaviour
             playerInZone = true;
             healTimer = 0f;
             playerHealth = other.GetComponent<PlayerHealthPoison>();
+            trackedPoison = other.GetComponent<PoisonEffect>();
 
             PoisonEffect poison = other.GetComponent<PoisonEffect>();
             if (poison != null) poison.SetSuppressed(true);
@@ -161,6 +181,13 @@ public class ActivatePillar : MonoBehaviour
             // Activate if not on cooldown and not already active
             if (!onCooldown && !isRising && !isUp && !isLowering)
                 isRising = true;
+
+            if (!onCooldown && !isRising && !isUp && !isLowering)
+                isRising = true;
+
+            CancelInvoke();
+            Invoke("ResetMats", 10);
+            GetComponent<MeshRenderer>().material = Material2;
         }
 
         // When the player steps on the pillar, change its material for visual feedback
@@ -187,7 +214,7 @@ public class ActivatePillar : MonoBehaviour
             }
         }
     }
-    
+
 
 
 }

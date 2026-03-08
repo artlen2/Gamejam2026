@@ -79,7 +79,7 @@ public class PlayerController : MonoBehaviour
             _velocity += _gravity * gravityMultiplier * Time.deltaTime;
         }
 
-            _direction.y = _velocity;
+        _direction.y = _velocity;
     }
 
     private void ApplyRotation()
@@ -114,7 +114,7 @@ public class PlayerController : MonoBehaviour
 
         // permet au personnage de sauter
         _velocity += jumpPower;
-     }
+    }
 
     public void Dash(InputAction.CallbackContext context)
     {

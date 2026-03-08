@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 6082387963126644196}
   - component: {fileID: 6594010130113472567}
   - component: {fileID: 6135986538788582973}
+  - component: {fileID: 5038706401687281059}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -279,7 +280,7 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 0
   hpText: {fileID: 0}
-  isAlive: 1
+  restartDelay: 2
 --- !u!114 &6135986538788582973
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -300,6 +301,21 @@ MonoBehaviour:
   projectilePrefab: {fileID: 6832996799110821030, guid: affc9a2c5c55eec4693fdb5efa83a61d, type: 3}
   firePoint: {fileID: 622551710977842890}
   projectileSpeed: 10
+--- !u!114 &5038706401687281059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737951370654492873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0ddbd7b4be9f1a4bb532f4129c7d784, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PoisonEffect
+  damagePerTick: 5
+  tickInterval: 1
+  isPoisoned: 0
 --- !u!1 &1474520064983329304
 GameObject:
   m_ObjectHideFlags: 0
