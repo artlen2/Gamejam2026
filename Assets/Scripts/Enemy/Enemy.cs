@@ -11,7 +11,7 @@ public class Enemy : LivingEntity
     Transform target;
     Animator anim;
 
-    [SerializeField] HealthBarEnemy healthBar;
+    [SerializeField] private HealthBarEnemy healthBar;
     [SerializeField] Renderer modelRenderer;
 
     Color originalColor;
@@ -52,7 +52,7 @@ public class Enemy : LivingEntity
         }
 
         agent.SetDestination(target.position);
-        anim.SetFloat("Speed", agent.desiredVelocity.magnitude);
+        anim.SetFloat("Speed", agent.velocity.magnitude);
 
         if (distance < attackDistance && Time.time > nextAttackTime)
         {
@@ -65,7 +65,7 @@ public class Enemy : LivingEntity
     {
         anim.SetTrigger("Attack");
 
-        LivingEntity player = target.GetComponent<LivingEntity>();
+        PlayerHealthPoison player = target.GetComponent<PlayerHealthPoison>();
 
         if (player != null)
         {
@@ -75,28 +75,18 @@ public class Enemy : LivingEntity
 
     public override void TakeDamage(float damage)
     {
-        Debug.Log("Took damage" + damage);
+        if (dead) return;
+
+        Debug.Log("Took damage: " + damage);
 
         base.TakeDamage(damage);
 
-        if (dead) return;
-
+        // Mise à jour de la barre de vie
         healthBar.UpdateHealthBarEnemy(startingHealth, health);
 
         anim.SetTrigger("Hit");
 
-        StartCoroutine(DamageFlash());
-
         StartCoroutine(Stun());
-    }
-
-    IEnumerator DamageFlash()
-    {
-        modelRenderer.material.color = Color.white;
-
-        yield return new WaitForSeconds(0.3f);
-
-        modelRenderer.material.color = originalColor;
     }
 
     IEnumerator Stun()
@@ -108,22 +98,29 @@ public class Enemy : LivingEntity
         agent.isStopped = false;
     }
 
-public override void Die()
-{
-    if (dead) return;
+    public override void Die()
+    {
+        if (dead) return;
 
-    dead = true;
-    
-    anim.SetTrigger("Death");
+        dead = true;
 
-    // Désactive l'Animator pour éviter toute nouvelle animation après la mort
-    anim.enabled = false;
+        anim.SetBool("IsDead", true);
 
-    agent.isStopped = true;
+        agent.isStopped = true;
+        agent.ResetPath();        // supprime le chemin
+        agent.enabled = false;    // empêche tout mouvement futur
 
-    // Éventuellement, supprimer l'objet après la durée de l'animation de mort
-    Destroy(gameObject, 2f); // ajuste la durée pour correspondre à celle de l'animation
-}
+        StartCoroutine(WaitAndDestroy());
+    }
+
+    private IEnumerator WaitAndDestroy()
+    {
+        // Attendre la fin de l'animation de mort (ajuste cette durée à celle de ton animation de mort)
+        yield return new WaitForSeconds(2f);  // Ajuste la durée à celle de l'animation
+
+        // Détruire l'objet une fois l'animation terminée
+        Destroy(gameObject);
+    }
 
     public void DestroyEnemy()
     {

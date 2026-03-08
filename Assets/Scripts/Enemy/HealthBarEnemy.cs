@@ -12,18 +12,19 @@ public class HealthBarEnemy : MonoBehaviour
     private void Start()
     {
         _cam = Camera.main;
+        _target = 1f;
+        _healthbarSprite.fillAmount = 1f;
     }
 
     public void UpdateHealthBarEnemy(float maxHealth, float currentHealth)
     {
+        // Met à jour la cible (la santé actuelle par rapport à la santé maximale)
         _target = currentHealth / maxHealth;
     }
 
     private void Update()
     {
-        transform.rotation = Quaternion.LookRotation(transform.position - _cam.transform.position);
-
-        _healthbarSprite.fillAmount =
-            Mathf.MoveTowards(_healthbarSprite.fillAmount, _target, _reduceSpeed * Time.deltaTime);
+        // Fais en sorte que la barre de vie suive progressivement la cible
+        _healthbarSprite.fillAmount = Mathf.MoveTowards(_healthbarSprite.fillAmount, _target, _reduceSpeed * Time.deltaTime);
     }
 }
