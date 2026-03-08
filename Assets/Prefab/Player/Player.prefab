@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 8133107367318398551}
   - component: {fileID: 2414437459751472465}
   - component: {fileID: 6082387963126644196}
-  - component: {fileID: 5159110496280957582}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -284,21 +283,6 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
---- !u!114 &5159110496280957582
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 737951370654492873}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9a9f9e10b4fb0d4896189f1b70cf24c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
-  maxHealth: 100
-  currentHealth: 100
-  healthSlider: {fileID: 0}
 --- !u!1 &1474520064983329304
 GameObject:
   m_ObjectHideFlags: 0

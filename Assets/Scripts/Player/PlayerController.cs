@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEditor.Timeline.TimelinePlaybackControls;
 
 // assure qu'il y a un CharacterController et envoie une notification si on le supprime
 [RequireComponent(typeof(CharacterController))]
@@ -35,6 +36,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private Transform firePoint;
     [SerializeField] private float projectileSpeed = 10f;
+
+    // animation
+    [SerializeField] private Animator animator;
 
     private void Awake()
     {
@@ -79,7 +83,7 @@ public class PlayerController : MonoBehaviour
             _velocity += _gravity * gravityMultiplier * Time.deltaTime;
         }
 
-            _direction.y = _velocity;
+         _direction.y = _velocity;
     }
 
     private void ApplyRotation()
@@ -102,6 +106,16 @@ public class PlayerController : MonoBehaviour
 
         // au lieu de bouger sur l'axe Y quand on veut aller en avant ou en arriere, on bouge sur l'axe Z
         _direction = new Vector3(_input.x, 0.0f, _input.y);
+
+        // declenche l'animation si bouton appuye
+        if (context.performed)
+            animator.SetBool("Walk", true);
+        Debug.Log("Marche effectue");
+
+        // arrete l'animation si bouton relache
+        if (context.canceled)
+            animator.SetBool("Walk", false);
+        Debug.Log("Marche stop");
     }
 
     public void Jump(InputAction.CallbackContext context)
@@ -109,12 +123,16 @@ public class PlayerController : MonoBehaviour
         // verifie si on tient la barre espace
         if (!context.started) return;
 
-        // verifie si on ne tient pas la barre espace
+        // verifie si on n'est pas deja en l'air
         if (!IsGrounded()) return;
 
-        // permet au personnage de sauter
-        _velocity += jumpPower;
-     }
+        // déclenche l'animation Jump via Trigger
+        animator.SetTrigger("Jump");
+        Debug.Log("Saut effectue");
+
+        // vitesse verticale pour le saut
+        _velocity = jumpPower;
+    }
 
     public void Dash(InputAction.CallbackContext context)
     {
@@ -130,23 +148,25 @@ public class PlayerController : MonoBehaviour
 
     public void Attack(InputAction.CallbackContext context)
     {
-        // on tire que lorsqu'on clique sur l'ennemi
         if (!context.performed) return;
 
-        // tire dans la direction du regard
-        firePoint.rotation = Quaternion.LookRotation(transform.forward);
+        // animation
+        animator.SetTrigger("Attack");
+        Debug.Log("Attack effectue");
 
-        // met le projectile en place
-        GameObject projectile = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
+        // direction de tir : toujours devant le joueur
+        Vector3 shootDirection = transform.forward;
+
+        // instanciation du projectile
+        GameObject projectile = Instantiate(projectilePrefab, firePoint.position, Quaternion.LookRotation(shootDirection));
 
         Rigidbody rb = projectile.GetComponent<Rigidbody>();
         if (rb != null)
         {
-            // detection en continu pour pas traverser les colliders
             rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
 
-            // vitesse initiale du projectile
-            rb.AddForce(firePoint.forward * projectileSpeed, ForceMode.VelocityChange);
+            // on utilise velocity pour que le projectile parte instantanement
+            rb.AddForce(shootDirection * projectileSpeed, ForceMode.VelocityChange);
         }
     }
 
@@ -158,6 +178,10 @@ public class PlayerController : MonoBehaviour
         // empeche de relancer un dash
         canDash = false;
         isDashing = true;
+
+        // declenche l’animation des le depart
+        if (animator != null)
+            animator.SetTrigger("Dash");
 
         // active le trail
         tr.emitting = true;
@@ -174,7 +198,7 @@ public class PlayerController : MonoBehaviour
             yield return null;
         }
 
-        // desactive le trail quand le dash est fini
+        // desactive le trail quand le dash est fini ainsi que l'animation
         tr.emitting = false;
         isDashing = false;
 
