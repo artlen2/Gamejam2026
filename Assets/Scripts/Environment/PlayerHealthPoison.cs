@@ -50,9 +50,14 @@ public class PlayerHealthPoison : MonoBehaviour
 
     public void TakeDamage(float amount)
     {
-        //if (!isAlive) return;
+        if (!isAlive) return;
+
         currentHealth = Mathf.Max(currentHealth - amount, 0f);
+
+        Debug.Log("Player HP: " + currentHealth);
+
         UpdateUI();
+
         if (currentHealth <= 0f) Die();
     }
 
