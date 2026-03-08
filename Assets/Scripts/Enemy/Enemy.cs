@@ -8,7 +8,7 @@ using UnityEngine.AI;
 public class Enemy : LivingEntity
 {
     NavMeshAgent agent;
-    Transform target;
+    GameObject target;
     Animator anim;
 
     [SerializeField] private HealthBarEnemy healthBar;
@@ -32,7 +32,7 @@ public class Enemy : LivingEntity
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
 
-        target = GameObject.FindGameObjectWithTag("Player").transform;
+        target = GameObject.FindGameObjectWithTag("Player");
 
         originalColor = modelRenderer.material.color;
     }
@@ -42,7 +42,7 @@ public class Enemy : LivingEntity
         if (dead) return;
         if (target == null) return;
 
-        float distance = Vector3.Distance(transform.position, target.position);
+        float distance = Vector3.Distance(transform.position, target.transform.position);
 
         if (distance > detectionDistance)
         {
@@ -51,7 +51,7 @@ public class Enemy : LivingEntity
             return;
         }
 
-        agent.SetDestination(target.position);
+        agent.SetDestination(target.transform.position);
         anim.SetFloat("Speed", agent.velocity.magnitude);
 
         if (distance < attackDistance && Time.time > nextAttackTime)
@@ -64,12 +64,10 @@ public class Enemy : LivingEntity
     void Attack()
     {
         anim.SetTrigger("Attack");
-
-        PlayerHealthPoison player = target.GetComponent<PlayerHealthPoison>();
-
-        if (player != null)
+       
+        if (target != null)
         {
-            player.TakeDamage(damage);
+            target.GetComponent<PlayerHealth>().TakeDamage(damage);
         }
     }
 
@@ -108,7 +106,7 @@ public class Enemy : LivingEntity
     {
         if (dead) return;
 
-        base.Die();
+        //base.Die();
 
         anim.SetBool("IsDead", true);
 
