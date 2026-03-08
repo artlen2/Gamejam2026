@@ -32,11 +32,7 @@ public class LivingEntity : MonoBehaviour, IDamageable
     {
         if (dead) return;
 
-        Debug.Log("TakeDamage: " + damage + " | Health before: " + health);
-
         health -= damage;
-
-        Debug.Log("Health after damage: " + health);
 
         if (health <= 0)
         {
@@ -44,16 +40,8 @@ public class LivingEntity : MonoBehaviour, IDamageable
         }
     }
 
-    [ContextMenu("Self Destruct")]
     public virtual void Die()
     {
         dead = true;
-
-        if (OnDeath != null)
-        {
-            OnDeath();
-        }
-
-        Destroy(gameObject, 2f); // laisse le temps à l'animation
     }
 }
