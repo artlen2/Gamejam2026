@@ -325,6 +325,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SafeZone
   healAmount: 10
   healInterval: 1
+  growDuration: 1.5
+  shrinkDuration: 1
+  fullScale: {x: 1, y: 1, z: 1}
 --- !u!1 &5523541718444221706
 GameObject:
   m_ObjectHideFlags: 0
